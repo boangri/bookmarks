@@ -32,14 +32,17 @@ function add_bm($new_url) {
   $result = $conn->query("select * from bookmark
                          where username='$valid_user'
                          and bm_URL='".$new_url."'");
-  if ($result && ($result->num_rows>0)) {
-    throw new Exception('Bookmark already exists.');
-  }
 
-  // insert the new bookmark
-  if (!$conn->query("insert into bookmark values
-     ('".$valid_user."', '".$new_url."')")) {
-    throw new Exception('Bookmark could not be inserted.');
+  if ($result && ($result->num_rows>0)) {
+    echo "<p class=\"warn\">Bookmark already exists.</p>";
+  } else {
+    //attempt to add
+    if (!$conn->query("insert into bookmark values
+       ('".$valid_user."', '".$new_url."')")) {
+       echo "<p class=\"warn\">Bookmark could not be inserted.</p>";
+    } else {
+       echo "<p>Bookmark added.</p>";
+    }
   }
 
   return true;

@@ -9,9 +9,13 @@ function do_html_header($title) {
     <style>
       body { font-family: Arial, Helvetica, sans-serif; font-size: 13px }
       li, td { font-family: Arial, Helvetica, sans-serif; font-size: 13px }
-      hr { color: #3333cc; width=300; text-align=left}
+      hr { color: #3333cc; }
       a { color: #000000 }
     </style>
+
+    <link rel="stylesheet" type="text/css" href="new_ss.css"/>
+    <script src="new_ajax.js" type="text/javascript"></script>
+
   </head>
   <body>
   <img src="bookmark.gif" alt="PHPbookmark logo" border="0"
@@ -167,19 +171,25 @@ function display_user_menu() {
 }
 
 function display_add_bm_form() {
-  // display the form for people to ener a new bookmark in
+  // display the form for people to enter a new bookmark in
 ?>
-<form name="bm_table" action="add_bms.php" method="post">
+<script type="text/javascript">
+var myReq = getXMLHTTPRequest();
+</script>
+<form>
 <table width="250" cellpadding="2" cellspacing="0" bgcolor="#cccccc">
 <tr><td>New BM:</td>
-<td><input type="text" name="new_url" value="http://"
+<td><input type="text" id="new_url" name="new_url" value="http://"
      size="30" maxlength="255"/></td></tr>
 <tr><td colspan="2" align="center">
-    <input type="submit" value="Add bookmark"/></td></tr>
+    <input type="button" value="Add bookmark"
+           onClick=" javascript:addNewBookmark();"/></td></tr>
 </table>
 </form>
+<div id="displayresult"></div>
 <?php
 }
+
 
 function display_password_form() {
   // display html change password form
